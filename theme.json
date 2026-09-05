@@ -760,7 +760,7 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"fontWeight": "400",
-					"lineHeight": "1.4"
+					"lineHeight": "1.5"
 				}
 			},
 			"core/categories": {
@@ -779,7 +779,7 @@
 				"typography": {
 					"fontSize": "var(--wp--preset--font-size--small)",
 					"fontWeight": "400",
-					"lineHeight": "1.4"
+					"lineHeight": "1.5"
 				}
 			},
 			"core/latest-comments": {

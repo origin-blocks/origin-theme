@@ -15,20 +15,8 @@
  * what a root value cannot reach. Core sizes the date and excerpt in em of the
  * root, so the doubled block class outranks those inner rules in any stylesheet
  * order. The date keeps core's relative size but never drops below the theme's
- * smallest preset. The commenter name and post link take the body ink the
- * sibling list blocks carry in theme.json, at the same (0,1,0) weight, so a link
- * colour set on the block still wins; comment-body links are untouched.
+ * smallest preset.
  */
-:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-author),
-:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-link) {
-	color: var(--wp--preset--color--text-body);
-}
-
-:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-author:hover),
-:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-link:hover) {
-	color: var(--wp--preset--color--primary);
-}
-
 .wp-block-latest-comments .wp-block-latest-comments__comment-excerpt p {
 	font-size: inherit;
 }
