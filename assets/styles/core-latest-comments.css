@@ -9,3 +9,31 @@
 .wp-block-post-content .wp-block-latest-comments a.wp-block-latest-comments__comment-link {
 	text-decoration: none;
 }
+
+/**
+ * The block root takes the widget voice from theme.json (core/latest-comments),
+ * but core sizes two inner elements in em of that root, which lands them below
+ * the theme's smallest preset, and the two navigation anchors inherit the prose
+ * link ink. The doubled block class outranks core's inner rules whatever the
+ * stylesheet order, which differs between the front end and the editor canvas.
+ * The anchor colours mirror the elements.link colours the sibling list blocks
+ * carry in theme.json; a block-wide rule would also recolour comment-body links.
+ */
+.wp-block-latest-comments a.wp-block-latest-comments__comment-author,
+.wp-block-latest-comments a.wp-block-latest-comments__comment-link {
+	color: var(--wp--preset--color--text-body);
+}
+
+.wp-block-latest-comments a.wp-block-latest-comments__comment-author:hover,
+.wp-block-latest-comments a.wp-block-latest-comments__comment-link:hover {
+	color: var(--wp--preset--color--primary);
+}
+
+.wp-block-latest-comments .wp-block-latest-comments__comment-excerpt p {
+	font-size: inherit;
+}
+
+.wp-block-latest-comments .wp-block-latest-comments__comment-date {
+	font-size: var(--wp--preset--font-size--extra-small);
+	font-weight: 400;
+}
