@@ -14,18 +14,20 @@
  * The block root takes the widget voice from theme.json (core/latest-comments),
  * but core sizes two inner elements in em of that root, which lands them below
  * the theme's smallest preset, and the two navigation anchors inherit the prose
- * link ink. The doubled block class outranks core's inner rules whatever the
- * stylesheet order, which differs between the front end and the editor canvas.
- * The anchor colours mirror the elements.link colours the sibling list blocks
- * carry in theme.json; a block-wide rule would also recolour comment-body links.
+ * link ink. The doubled block class on the size rules outranks core's inner
+ * rules whatever the stylesheet order, which differs between the front end and
+ * the editor canvas. The anchor colours mirror the elements.link colours the
+ * sibling list blocks carry in theme.json, at the same (0,1,0) weight, so a
+ * link colour set on the block in the editor still wins; a block-wide rule
+ * would also recolour comment-body links.
  */
-.wp-block-latest-comments a.wp-block-latest-comments__comment-author,
-.wp-block-latest-comments a.wp-block-latest-comments__comment-link {
+:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-author),
+:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-link) {
 	color: var(--wp--preset--color--text-body);
 }
 
-.wp-block-latest-comments a.wp-block-latest-comments__comment-author:hover,
-.wp-block-latest-comments a.wp-block-latest-comments__comment-link:hover {
+:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-author:hover),
+:root :where(.wp-block-latest-comments a.wp-block-latest-comments__comment-link:hover) {
 	color: var(--wp--preset--color--primary);
 }
 
