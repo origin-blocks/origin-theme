@@ -15,8 +15,14 @@
  * rules cover what a root value cannot reach. Core sizes the date and excerpt in em of the
  * root, so the doubled block class outranks those inner rules in any stylesheet
  * order. The date keeps core's relative size but never drops below the theme's
- * smallest preset.
+ * smallest preset. A commenter without a URL renders as a span, which no link
+ * rule reaches, so the name takes the heading colour here for both forms; a
+ * link colour set on the block still wins.
  */
+:root :where(.wp-block-latest-comments .wp-block-latest-comments__comment-author) {
+	color: var(--wp--preset--color--text-heading);
+}
+
 .wp-block-latest-comments .wp-block-latest-comments__comment-excerpt p {
 	font-size: inherit;
 }
