@@ -11,8 +11,8 @@
 }
 
 /**
- * The block root carries the widget voice from theme.json; these rules cover
- * what a root value cannot reach. Core sizes the date and excerpt in em of the
+ * theme.json sets the block root's font size, weight and line height; these
+ * rules cover what a root value cannot reach. Core sizes the date and excerpt in em of the
  * root, so the doubled block class outranks those inner rules in any stylesheet
  * order. The date keeps core's relative size but never drops below the theme's
  * smallest preset.
