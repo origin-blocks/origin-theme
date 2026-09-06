@@ -7,3 +7,10 @@
 .wp-block-post-content .wp-block-categories a {
 	text-decoration: none;
 }
+
+/* The block has no blockGap support; the rows sit `small` apart, as the
+   sidebar's term list does, at every depth of a hierarchical list. */
+.wp-block-categories-list li + li,
+.wp-block-categories-list li > ul.children {
+	margin-block-start: var(--wp--preset--spacing--small);
+}

@@ -376,12 +376,11 @@ input[type="radio"]:focus-visible {
 	padding: 0;
 }
 
+/* Row spacing for these lists is owned by their per-block stylesheets (a flex
+   gap here would stack with it); only the list reset lives here. */
 .origin-canvas-sidebar .wp-block-categories-list,
 .origin-canvas-sidebar .wp-block-archives-list,
 .origin-canvas-sidebar .wp-block-latest-comments {
-	display: flex;
-	flex-direction: column;
-	gap: var(--wp--preset--spacing--medium);
 	list-style: none;
 	margin: 0;
 	padding: 0;
