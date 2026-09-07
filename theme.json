@@ -763,6 +763,27 @@
 					"lineHeight": "1.5"
 				}
 			},
+			"core/calendar": {
+				"color": {
+					"text": "var(--wp--preset--color--text-muted)"
+				},
+				"elements": {
+					"link": {
+						"color": {
+							"text": "var(--wp--preset--color--text-heading)"
+						},
+						":hover": {
+							"color": {
+								"text": "var(--wp--preset--color--primary)"
+							}
+						}
+					}
+				},
+				"typography": {
+					"fontSize": "var(--wp--preset--font-size--small)",
+					"lineHeight": "1.5"
+				}
+			},
 			"core/categories": {
 				"elements": {
 					"link": {
