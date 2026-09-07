@@ -1,0 +1,139 @@
+/**
+ * A calendar is an index, so one rule under the weekday row does the separating and
+ * weight carries the link affordance. WordPress boxes every cell, fills the weekday row
+ * grey and underlines the month links; all three go here because none can be reached from
+ * theme.json — the block declares no border or spacing support, and its colour support
+ * routes a background to `table, th`, which would refill the very band this removes.
+ *
+ * Day size, day and weekday-label colour, and link colour and hover are NOT in this file.
+ * theme.json owns them, so they stay editable in Global Styles.
+ */
+
+.wp-block-calendar {
+	container-type: inline-size;
+}
+
+/*
+ * `separate` is load-bearing: a collapsed table drops border-radius on a cell, which is
+ * what paints today's ground. At zero spacing the seven header rules still meet as one
+ * line. The table's own class is named because WordPress sets border-collapse at
+ * `.wp-block-calendar table`, which this would otherwise only tie.
+ */
+.wp-block-calendar table.wp-calendar-table {
+	border-collapse: separate;
+	border-spacing: 0;
+	margin: 0;
+	table-layout: fixed;
+}
+
+.wp-block-calendar table caption {
+	caption-side: top;
+	padding: 0 0 var(--wp--preset--spacing--compact);
+	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+/* The caption sits inside the table, so theme.json's day colour inherits into it. This is
+   the one place that colour is overridden, and only when the author has not set one. */
+.wp-block-calendar table:not(.has-text-color) caption {
+	color: var(--wp--preset--color--text-heading);
+}
+
+.wp-block-calendar table th,
+.wp-block-calendar table td {
+	border: 0;
+}
+
+/* Mirrors the guard WordPress uses itself, so a background set on the block still fills
+   the row. */
+.wp-block-calendar table:not(.has-background) th {
+	background: none;
+}
+
+.wp-block-calendar table thead th {
+	padding: 0 var(--wp--preset--spacing--extra-small) var(--wp--preset--spacing--compact);
+	border-bottom: 1px solid var(--wp--preset--color--border);
+	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+/* The padding sits on the cell because a day with no archive renders as bare text, with no
+   element to carry it, so every row keeps the same height. */
+.wp-block-calendar table tbody td {
+	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
+	vertical-align: middle;
+}
+
+/* The link pulls back over that padding so its ground covers the whole cell. */
+.wp-block-calendar table tbody td a {
+	display: block;
+	margin: calc(var(--wp--preset--spacing--compact) * -1)
+		calc(var(--wp--preset--spacing--extra-small) * -1);
+	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
+	border-radius: var(--wp--custom--radius--small);
+	font-weight: 600;
+	transition: background-color 120ms ease, color 120ms ease;
+}
+
+.wp-block-calendar table tbody td a:hover {
+	background-color: var(--wp--preset--color--surface-muted);
+}
+
+/* Today is marked whether or not it has a post, so the ground is on the cell. The grounds
+   here carry no background guard on purpose: an author background lands on `table, th`,
+   never on a `td`, so the two never contest the same element, and a today cell that
+   vanished under an author background would have lost information. */
+.wp-block-calendar table tbody td#today {
+	background-color: var(--wp--preset--color--surface-subtle);
+	border-radius: var(--wp--custom--radius--small);
+	font-weight: 600;
+}
+
+.wp-block-calendar table:not(.has-text-color) tbody td#today {
+	color: var(--wp--preset--color--text-heading);
+}
+
+.wp-block-calendar .wp-calendar-nav {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--wp--preset--spacing--extra-small);
+	margin-top: var(--wp--preset--spacing--compact);
+	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
+}
+
+.wp-block-calendar .wp-calendar-nav a {
+	font-weight: 500;
+	transition: color 120ms ease;
+}
+
+/* The one link colour theme.json cannot express: elements.link sets a single colour for
+   the whole block, and the month nav sits a step below the day links. The nav is the
+   table's sibling, not its descendant, so the guard reaches it with ~ rather than by
+   descent, and an author link colour still wins because this rule stops matching. */
+.wp-block-calendar table:not(.has-link-color) ~ .wp-calendar-nav a {
+	color: var(--wp--preset--color--text-body);
+}
+
+/* Calendar links are navigation, never prose, so the content-link underline is excluded. */
+.wp-block-post-content .wp-block-calendar a {
+	text-decoration: none;
+}
+
+@container (max-width: 400px) {
+	.wp-block-calendar table thead th,
+	.wp-block-calendar table tbody td {
+		padding-inline: 0;
+	}
+
+	.wp-block-calendar table tbody td a {
+		margin-inline: 0;
+		padding-inline: 0;
+	}
+}
