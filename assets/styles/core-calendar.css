@@ -30,7 +30,7 @@
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
 	font-weight: 600;
 	letter-spacing: 0.08em;
-	text-align: left;
+	text-align: start;    /* logical, so an RTL locale reads from its own edge */
 	text-transform: uppercase;
 }
 
@@ -120,12 +120,18 @@
 	transition: color 120ms ease;
 }
 
-/* The one link colour theme.json cannot express: elements.link sets a single colour for
-   the whole block, and the month nav sits a step below the day links. The nav is the
-   table's sibling, not its descendant, so the guard reaches it with ~ rather than by
-   descent, and an author link colour still wins because this rule stops matching. */
-.wp-block-calendar table:not(.has-link-color) ~ .wp-calendar-nav a {
+/* The one link colour theme.json cannot express: elements.link sets a single colour for the
+   whole block, and the month nav sits a step below the day links.
+ *
+ * The guard is the wrapper's generated element class, not the table's has-link-color, because
+ * an author who sets only a hover colour gets the wrapper class and no table class. Either
+ * way these two rules stop matching and the author's own rule is the only one left. */
+.wp-block-calendar:not([class*="wp-elements-"]) .wp-calendar-nav a {
 	color: var(--wp--preset--color--text-body);
+}
+
+.wp-block-calendar:not([class*="wp-elements-"]) .wp-calendar-nav a:hover {
+	color: var(--wp--preset--color--primary);
 }
 
 /* Calendar links are navigation, never prose, so the content-link underline is excluded. */
