@@ -61,16 +61,10 @@
 }
 
 /* The padding sits on the cell because a day with no archive renders as bare text, with no
-   element to carry it, so every row keeps the same height.
-
-   Weight, tracking and transform are stated on every surface in this file, this one included,
-   so the block's single control for each cannot half-apply across the five different values
-   the calendar uses. Size and line height are not stated, and remain live controls. */
+   element to carry it, so every row keeps the same height. Nothing typographic is stated
+   here: a day number is the block's plain text, so it follows whatever the block is set to. */
 .wp-block-calendar table tbody td {
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
-	font-weight: 400;
-	letter-spacing: normal;
-	text-transform: none;
 	vertical-align: middle;
 }
 
@@ -111,8 +105,6 @@
 	gap: var(--wp--preset--spacing--extra-small);
 	margin-top: var(--wp--preset--spacing--compact);
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
-	letter-spacing: normal;
-	text-transform: none;
 }
 
 .wp-block-calendar .wp-calendar-nav a {
@@ -123,18 +115,12 @@
 /* The one link colour theme.json cannot express: elements.link sets a single colour for the
    whole block, and the month nav sits a step below the day links.
  *
- * The two states take different guards because WordPress sets two different classes. A
- * default link colour puts has-link-color on the table; a hover colour puts the generated
- * element class on the wrapper, and a hover-only colour sets that one alone. So the resting
- * colour steps aside only for an authored default — otherwise a hover-only colour would drag
- * the resting link to the day-link colour — while the hover override steps aside for either,
- * leaving the author's rule as the only one that applies. */
-.wp-block-calendar table:not(.has-link-color) ~ .wp-calendar-nav a {
+ * Only the resting state is set, and only when no default link colour is authored on the
+ * block. `:not(:hover)` keeps this rule out of the hover state entirely, so hover falls
+ * through to whatever theme.json or Global Styles sets for the block's links — which is the
+ * layer that owns it. */
+.wp-block-calendar table:not(.has-link-color) ~ .wp-calendar-nav a:not(:hover) {
 	color: var(--wp--preset--color--text-body);
-}
-
-.wp-block-calendar:not([class*="wp-elements-"]) .wp-calendar-nav a:hover {
-	color: var(--wp--preset--color--primary);
 }
 
 /* Calendar links are navigation, never prose, so the content-link underline is excluded. */
