@@ -63,9 +63,21 @@
 }
 
 /* The padding sits on the cell because a day with no archive renders as bare text, with no
-   element to carry it, so every row keeps the same height. */
+   element to carry it, so every row keeps the same height.
+ *
+ * The weight is stated here even though 400 is already the inherited value. The block
+ * supports a font weight, but the treatment needs four different ones inside it — 600 on the
+ * caption and weekday labels, 600 on a linked day, 500 on the month nav, 400 on a plain day —
+ * and a block-level control can only set one. Leaving this cell alone would make that control
+ * half-apply: plain days would move while every other surface stayed put. Stating it means a
+ * block font weight changes nothing anywhere in the calendar, which is predictable. The same
+ * holds for letter-spacing and text-transform above. Size and line height are unaffected and
+ * remain live controls. */
 .wp-block-calendar table tbody td {
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
+	font-weight: 400;
+	letter-spacing: normal;
+	text-transform: none;
 	vertical-align: middle;
 }
 
@@ -106,6 +118,8 @@
 	gap: var(--wp--preset--spacing--extra-small);
 	margin-top: var(--wp--preset--spacing--compact);
 	font-size: max(0.875em, var(--wp--preset--font-size--extra-small));
+	letter-spacing: normal;
+	text-transform: none;
 }
 
 .wp-block-calendar .wp-calendar-nav a {
