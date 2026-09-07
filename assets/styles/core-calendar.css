@@ -5,13 +5,11 @@
  * theme.json — the block declares no border or spacing support, and its colour support
  * routes a background to `table, th`, which would refill the very band this removes.
  *
- * Day size, day and weekday-label colour, and link colour and hover are NOT in this file.
- * theme.json owns them, so they stay editable in Global Styles.
+ * Day size and line height, the day and weekday-label colour, and the day-link colour and its
+ * hover live in theme.json, not here, so they stay editable in Global Styles. The month nav's
+ * colour is the exception: elements.link sets one colour for the whole block and the nav sits
+ * a step below the day links, so its default is owned here.
  */
-
-.wp-block-calendar {
-	container-type: inline-size;
-}
 
 /*
  * `separate` is load-bearing: a collapsed table drops border-radius on a cell, which is
@@ -64,15 +62,10 @@
 
 /* The padding sits on the cell because a day with no archive renders as bare text, with no
    element to carry it, so every row keeps the same height.
- *
- * The weight is stated here even though 400 is already the inherited value. The block
- * supports a font weight, but the treatment needs four different ones inside it — 600 on the
- * caption and weekday labels, 600 on a linked day, 500 on the month nav, 400 on a plain day —
- * and a block-level control can only set one. Leaving this cell alone would make that control
- * half-apply: plain days would move while every other surface stayed put. Stating it means a
- * block font weight changes nothing anywhere in the calendar, which is predictable. The same
- * holds for letter-spacing and text-transform above. Size and line height are unaffected and
- * remain live controls. */
+
+   Weight, tracking and transform are stated on every surface in this file, this one included,
+   so the block's single control for each cannot half-apply across the five different values
+   the calendar uses. Size and line height are not stated, and remain live controls. */
 .wp-block-calendar table tbody td {
 	padding: var(--wp--preset--spacing--compact) var(--wp--preset--spacing--extra-small);
 	font-weight: 400;
@@ -140,7 +133,12 @@
 	text-decoration: none;
 }
 
-@container (max-width: 400px) {
+/* Seven columns in a phone-width viewport read better without the horizontal cell padding.
+   This keys off the viewport rather than the block's own width because inline-size
+   containment would make the block's intrinsic width resolve as if it were empty, which
+   collapses it to zero inside a Row. The type on this block is viewport-fluid too, so both
+   respond to the same thing. */
+@media (max-width: 600px) {
 	.wp-block-calendar table thead th,
 	.wp-block-calendar table tbody td {
 		padding-inline: 0;
