@@ -123,10 +123,13 @@
 /* The one link colour theme.json cannot express: elements.link sets a single colour for the
    whole block, and the month nav sits a step below the day links.
  *
- * The guard is the wrapper's generated element class, not the table's has-link-color, because
- * an author who sets only a hover colour gets the wrapper class and no table class. Either
- * way these two rules stop matching and the author's own rule is the only one left. */
-.wp-block-calendar:not([class*="wp-elements-"]) .wp-calendar-nav a {
+ * The two states take different guards because WordPress sets two different classes. A
+ * default link colour puts has-link-color on the table; a hover colour puts the generated
+ * element class on the wrapper, and a hover-only colour sets that one alone. So the resting
+ * colour steps aside only for an authored default — otherwise a hover-only colour would drag
+ * the resting link to the day-link colour — while the hover override steps aside for either,
+ * leaving the author's rule as the only one that applies. */
+.wp-block-calendar table:not(.has-link-color) ~ .wp-calendar-nav a {
 	color: var(--wp--preset--color--text-body);
 }
 
