@@ -1,0 +1,23 @@
+/**
+ * RSS item titles are navigation, never prose. The block's size, weight, line height and link
+ * colour come from theme.json, so they stay editable in Global Styles; this file carries only
+ * what a block node cannot express.
+ */
+
+/* The block has no blockGap support, so the row step is a margin, as the other lists do.
+   A grid keeps the flex gutters WordPress gives it. */
+.wp-block-rss:not(.is-grid) > li + li {
+	margin-block-start: var(--wp--preset--spacing--small);
+}
+
+/* WordPress sizes these in em of the block, which lands below the theme's smallest preset once
+   the block is `small`; the floor keeps them on the scale. The doubled block class outranks
+   that rule whatever order the stylesheets load in. */
+.wp-block-rss .wp-block-rss__item-publish-date,
+.wp-block-rss .wp-block-rss__item-author {
+	font-size: max(0.8125em, var(--wp--preset--font-size--extra-small));
+}
+
+.wp-block-post-content .wp-block-rss a {
+	text-decoration: none;
+}
