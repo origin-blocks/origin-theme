@@ -13,12 +13,41 @@
 	margin-block-start: var(--wp--preset--spacing--medium);
 }
 
-/* WordPress sizes these in em of the block, which lands below the theme's smallest preset once
-   the block is `small`; the floor keeps them on the scale. The doubled block class outranks
-   that rule whatever order the stylesheets load in. */
+/* The title anchors the item. Weight carries that rather than colour or size: the block hands
+   the user its text and link colours but no typography at all, so weight is the one axis the
+   theme can hold without taking a control away. */
+.wp-block-rss .wp-block-rss__item-title {
+	font-weight: 500;
+}
+
+/* The date and the author are one stamp, not two rows. WordPress gives each of them
+   `display: block`; joining them costs a line and reads as a single credit.
+
+   Their size is set in em of the block, which lands below the theme's smallest preset once the
+   block is `small`, so the floor keeps them on the scale. The doubled block class outranks that
+   rule whatever order the stylesheets load in. */
 .wp-block-rss .wp-block-rss__item-publish-date,
 .wp-block-rss .wp-block-rss__item-author {
+	display: inline;
 	font-size: max(0.8125em, var(--wp--preset--font-size--extra-small));
+}
+
+/* The separator exists only where there is something on both sides of it. Each part is opt-in,
+   and a feed item can carry a date and no author, so the adjacency is the condition. */
+.wp-block-rss .wp-block-rss__item-publish-date + .wp-block-rss__item-author::before {
+	content: "·";
+	padding: 0 var(--wp--preset--spacing--small);
+}
+
+/* The stamp sits under the title; the excerpt sits under whatever precedes it. */
+.wp-block-rss
+	.wp-block-rss__item-title:has(+ .wp-block-rss__item-publish-date, + .wp-block-rss__item-author) {
+	margin-block-end: var(--wp--preset--spacing--extra-small);
+}
+
+.wp-block-rss .wp-block-rss__item-excerpt {
+	margin-block-start: var(--wp--preset--spacing--small);
+	line-height: 1.5;
 }
 
 .wp-block-post-content .wp-block-rss a {
